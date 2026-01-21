@@ -16,13 +16,12 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        func(0, 0, new LinkedHashSet<>());
+        func(0, new LinkedHashSet<>());
 
         System.out.println(result);
     }
 
     static void func(
-            int before,
             int cnt,
             LinkedHashSet<Integer> set
     ) {
@@ -38,7 +37,7 @@ public class Main {
                 continue;
             }
             set.add(i);
-            func(i, cnt + 1, set);
+            func(cnt + 1, set);
             set.remove(i);
         }
     }
