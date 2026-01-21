@@ -1,7 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -16,29 +17,32 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        func(0, new LinkedHashSet<>());
+        func(0, new ArrayList<>(), new boolean[n + 1]);
 
         System.out.println(result);
     }
 
     static void func(
             int cnt,
-            LinkedHashSet<Integer> set
+            List<Integer> list,
+            boolean[] visit
     ) {
         if (cnt == m) {
-            for (final Integer i : set) {
+            for (final Integer i : list) {
                 result.append(i).append(" ");
             }
             result.append("\n");
             return;
         }
         for (int i = 1; i <= n; i++) {
-            if (set.contains(i)) {
+            if (visit[i]) {
                 continue;
             }
-            set.add(i);
-            func(cnt + 1, set);
-            set.remove(i);
+            list.add(i);
+            visit[i] = true;
+            func(cnt + 1, list, visit);
+            list.remove(list.size() - 1);
+            visit[i] = false;
         }
     }
 }
